@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenjianwen.mapper.UserMap">
+
+    <resultMap id="userMap" type="com.chenjianwen.model.User">
+        <id column="uid" property="uid"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <collection property="roleSet" ofType="com.chenjianwen.model.Role">
+            <id column="rid" property="rid"/>
+            <result column="name" property="name"/>
+            <collection property="permissionSet" ofType="com.chenjianwen.model.Permission">
+                <id column="pid" property="pid"/>
+                <result column="name" property="name"/>
+                <result column="url" property="url"/>
+            </collection>
+        </collection>
+    </resultMap>
+    
+</mapper>
