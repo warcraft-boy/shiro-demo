@@ -5,17 +5,28 @@
 
     <resultMap id="userMap" type="com.chenjianwen.model.User">
         <id column="uid" property="uid"/>
-        <result column="name" property="name"/>
+        <result column="user_name" property="userName"/>
         <result column="password" property="password"/>
         <collection property="roleSet" ofType="com.chenjianwen.model.Role">
             <id column="rid" property="rid"/>
-            <result column="name" property="name"/>
+            <result column="role_name" property="roleName"/>
             <collection property="permissionSet" ofType="com.chenjianwen.model.Permission">
                 <id column="pid" property="pid"/>
-                <result column="name" property="name"/>
+                <result column="permission_name" property="permissionName"/>
                 <result column="url" property="url"/>
             </collection>
         </collection>
     </resultMap>
+    
+    <select id="findByUsername" parameterType="string" resultMap="userMap">
+        SELECT
+            u.*,r.*,p.*
+        FROM user AS u
+        INNER JOIN user_role AS ur ON ur.uid = u.uid
+        INNER JOIN role AS r ON r.rid = ur.rid
+        INNER JOIN role_permission AS rp ON rp.rid = r.rid
+        INNER JOIN permission AS p ON p.pid = rp.pid
+        WHERE u.user_name = #{username}
+    </select>
     
 </mapper>

@@ -37,7 +37,7 @@ public class AuthRealm extends AuthorizingRealm {
                 Set<Permission> permissionSet = role.getPermissionSet();
                 if(CollectionUtils.isNotEmpty(permissionSet)){
                     for(Permission permission : permissionSet){
-                        permissionList.add(permission.getName());
+                        permissionList.add(permission.getPermissionName());
                     }
                 }
             }
@@ -57,7 +57,12 @@ public class AuthRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
         String username = usernamePasswordToken.getUsername();
-        User user = userService.findByUsername(username);
+        User user = null;
+        try {
+            user = userService.findByUsername(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new SimpleAuthenticationInfo(user,user.getPassword(),this.getClass().getName());
     }
 }

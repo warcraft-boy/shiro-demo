@@ -6,7 +6,7 @@ import java.util.Set;
 public class Role {
 
     private Integer rid;
-    private String name;
+    private String roleName;
     private Set<Permission> permissionSet = new HashSet<>();
     private Set<User> userSet = new HashSet<>();
 
@@ -18,12 +18,12 @@ public class Role {
         this.rid = rid;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Set<Permission> getPermissionSet() {

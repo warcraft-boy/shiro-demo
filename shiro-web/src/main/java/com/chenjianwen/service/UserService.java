@@ -4,5 +4,5 @@ import com.chenjianwen.model.User;
 
 public interface UserService {
 
-    public User findByUsername(String name);
+    public User findByUsername(String username);
 }

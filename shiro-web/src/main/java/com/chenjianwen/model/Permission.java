@@ -3,7 +3,7 @@ package com.chenjianwen.model;
 public class Permission {
 
     private Integer pid;
-    private String name;
+    private String permissionName;
     private String url;
 
     public Integer getPid() {
@@ -14,12 +14,12 @@ public class Permission {
         this.pid = pid;
     }
 
-    public String getName() {
-        return name;
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
     public String getUrl() {
