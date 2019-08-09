@@ -28,6 +28,9 @@ public class ShiroConfiguration {
         LinkedHashMap<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/index","authc"); //在DefaultFilter中枚举
         filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("loginUser","anon");
+        filterChainDefinitionMap.put("/admin","roles[admin]"); //表明"/admin"接口只有admin角色才能访问
+        filterChainDefinitionMap.put("/edit","perms[edit]"); //源码在PermissionsAuthorizationFilter这个类
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
