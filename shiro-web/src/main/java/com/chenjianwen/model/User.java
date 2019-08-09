@@ -5,9 +5,21 @@ import java.util.Set;
 
 public class User {
 
+    /**
+     * 用户id
+     */
     private Integer uid;
+    /**
+     * 用户名
+     */
     private String userName;
+    /**
+     * 用户密码
+     */
     private String password;
+    /**
+     * 角色集
+     */
     private Set<Role> roleSet = new HashSet<>();
 
     public Integer getUid() {

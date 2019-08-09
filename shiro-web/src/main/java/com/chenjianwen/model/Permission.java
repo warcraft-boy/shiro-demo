@@ -2,8 +2,17 @@ package com.chenjianwen.model;
 
 public class Permission {
 
+    /**
+     * 权限id
+     */
     private Integer pid;
+    /**
+     * 权限名称
+     */
     private String permissionName;
+    /**
+     * 权限资源
+     */
     private String url;
 
     public Integer getPid() {

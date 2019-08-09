@@ -5,9 +5,21 @@ import java.util.Set;
 
 public class Role {
 
+    /**
+     * 角色id
+     */
     private Integer rid;
+    /**
+     * 角色名称
+     */
     private String roleName;
+    /**
+     * 权限集
+     */
     private Set<Permission> permissionSet = new HashSet<>();
+    /**
+     * 用户集
+     */
     private Set<User> userSet = new HashSet<>();
 
     public Integer getRid() {
