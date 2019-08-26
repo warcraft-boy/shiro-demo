@@ -82,7 +82,7 @@ public class CustomRealm extends AuthorizingRealm {
         //1、从主体传过来的用户信息中，获取用户名
         String username = (String) token.getPrincipal();
         //2、通过用户名从数据库中获取密码，这里测试就不过数据库，模拟数据库
-        String password = getPasswordByUsernama(username);
+        String password = this.getPasswordByUsername(username);
         if(StringUtils.isBlank(password)){
             return null;
         }
@@ -95,7 +95,7 @@ public class CustomRealm extends AuthorizingRealm {
      * @param username
      * @return
      */
-    private String getPasswordByUsernama(String username){
+    private String getPasswordByUsername(String username){
         return userMap.get(username);
     }
 }
