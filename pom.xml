@@ -16,7 +16,7 @@
     </parent>
 
     <modules>
-        <module>shiro-web</module>
+        <module>shiro-boot</module>
         <module>shiro-test</module>
     </modules>
 

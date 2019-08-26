@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.chenjianwen</groupId>
-    <artifactId>shiro-web</artifactId>
+    <artifactId>shiro-boot</artifactId>
     <version>20190720</version>
     <packaging>war</packaging>
-    <name>shiro-web</name>
+    <name>shiro-boot</name>
     <description>Demo project for Spring Boot shiro</description>
 
     <properties>
