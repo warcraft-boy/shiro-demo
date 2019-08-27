@@ -18,6 +18,7 @@
     <modules>
         <module>shiro-boot</module>
         <module>shiro-test</module>
+        <module>shiro-web</module>
     </modules>
 
     <properties>
