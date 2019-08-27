@@ -1,21 +1,26 @@
 package com.chenjianwen.model;
 
-/**
- * @Description: <br>
- * @Date: Created in 2019/8/27 <br>
- * @Author: chenjianwen
- */
 public class User {
+    private Long uid;
 
-    private String username;
+    private String userName;
+
     private String password;
 
-    public String getUsername() {
-        return username;
+    public Long getUid() {
+        return uid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getPassword() {
@@ -23,6 +28,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 }
