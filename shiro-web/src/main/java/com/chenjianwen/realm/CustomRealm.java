@@ -1,5 +1,11 @@
 package com.chenjianwen.realm;
 
+import com.chenjianwen.model.Permission;
+import com.chenjianwen.model.Role;
+import com.chenjianwen.model.User;
+import com.chenjianwen.service.PermissionService;
+import com.chenjianwen.service.RoleService;
+import com.chenjianwen.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -12,11 +18,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description: 自定义realm
@@ -25,12 +30,12 @@ import java.util.Set;
  */
 public class CustomRealm extends AuthorizingRealm {
 
-    Map<String,String> userMap = new HashMap<>();
-    {
-        userMap.put("root","e3f3c7293558a2cbc73359d814a3a394");
-        super.setName("customerRealm");
-    }
-
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private PermissionService permissionService;
 
     /**
      * 授权
@@ -41,9 +46,9 @@ public class CustomRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String) principals.getPrimaryPrincipal();
         //获取角色信息：
-        Set<String> roles = this.getRolesByUsername(username);
+        List<String> roles = this.getRolesByUsername(username);
         //获取权限信息：
-        Set<String> permissions = this.getPermissionsByUsername(username);
+        List<String> permissions = this.getPermissionsByUsername(username);
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addRoles(roles);
@@ -52,26 +57,28 @@ public class CustomRealm extends AuthorizingRealm {
     }
 
     /**
-     * 模拟数据库，获取权限信息：
+     * 从数据库中获取权限信息：
      * @param username
      * @return
      */
-    private Set<String> getPermissionsByUsername(String username){
-        Set<String> sets = new HashSet<>();
-        sets.add("user:delete");
-        sets.add("user:add");
-        return sets;
+    private List<String> getPermissionsByUsername(String username){
+        List<Permission> permissions = permissionService.queryPermissionByUsername(username);
+        if(permissions == null || permissions.size() == 0){
+            return null;
+        }
+        return permissions.stream().map(t -> t.getPermissionName()).collect(Collectors.toList());
     }
     /**
-     * 模拟数据库，获取角色信息
+     * 从拟数据库中获取角色信息
      * @param username
      * @return
      */
-    private Set<String> getRolesByUsername(String username){
-        Set<String> sets = new HashSet<>();
-        sets.add("admin");
-        sets.add("user");
-        return sets;
+    private List<String> getRolesByUsername(String username){
+        List<Role> roles = roleService.queryRolesByUsername(username);
+        if(roles == null || roles.size() == 0){
+            return null;
+        }
+        return roles.stream().map(t -> t.getRoleName()).collect(Collectors.toList());
     }
 
     /**
@@ -89,18 +96,22 @@ public class CustomRealm extends AuthorizingRealm {
         if(StringUtils.isBlank(password)){
             return null;
         }
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo("root",password,"customRealm");
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,password,"customRealm");
         simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes("random"));
         return simpleAuthenticationInfo;
     }
 
     /**
-     * 模拟数据库用
+     * 从数据库获取用户密码
      * @param username
      * @return
      */
     private String getPasswordByUsername(String username){
-        return userMap.get(username);
+        User user = userService.queryUserByUsername(username);
+        if(user == null){
+            return null;
+        }
+        return user.getPassword();
     }
 
     @Test

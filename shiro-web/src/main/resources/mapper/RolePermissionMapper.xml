@@ -31,4 +31,18 @@
       </if>
     </trim>
   </insert>
+
+  <!-- 查询角色权限关系信息 -->
+  <select id="selectRolePermission" parameterType="com.chenjianwen.model.RolePermission" resultMap="BaseResultMap">
+    SELECT
+    rid,pid
+    FROM role_permission
+    WHERE 1=1
+    <if test="rid != null">
+      AND rid = #{rid,jdbcType=BIGINT}
+    </if>
+    <if test="pid != null">
+      AND pid = #{pid,jdbcType=BIGINT}
+    </if>
+  </select>
 </mapper>

@@ -35,14 +35,17 @@ public class UserController {
         } catch (AuthenticationException e) {
             return e.getMessage();
         }
-        return "登陆成功";
+
+        //判断权限
+//        if(subject.hasRole("admin")){
+//            return "有admin权限";
+//        }
+
+        if(subject.isPermitted("add")){
+            return "有add权限";
+        }
+
+        return "无add权限";
     }
 
-    @RequestMapping(value = "/queryUser",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public Object getUser(){
-        String username = "admin";
-        User user = userService.queryUserByUsername(username);
-        return user;
-    }
 }

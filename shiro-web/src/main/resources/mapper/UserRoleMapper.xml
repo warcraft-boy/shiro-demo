@@ -31,4 +31,18 @@
       </if>
     </trim>
   </insert>
+
+  <!-- 根据用户id或角色id查询用户角色关系 -->
+  <select id="selectUserRoleSelective" parameterType="com.chenjianwen.model.UserRole" resultMap="BaseResultMap">
+    SELECT
+    uid,rid
+    FROM user_role
+    WHERE 1=1
+    <if test="uid != null">
+      AND uid = #{uid,jdbcType=BIGINT}
+    </if>
+    <if test="rid != null">
+      AND rid = #{rid,jdbcType=BIGINT}
+    </if>
+  </select>
 </mapper>

@@ -62,4 +62,15 @@
     set role_name = #{roleName,jdbcType=VARCHAR}
     where rid = #{rid,jdbcType=BIGINT}
   </update>
+
+  <!-- 通过角色id集合查询角色信息 -->
+  <select id="selectRoleList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+    rid,role_name
+    FROM role
+    WHERE rid IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 </mapper>
