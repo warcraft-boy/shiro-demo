@@ -5,6 +5,7 @@ import com.chenjianwen.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,4 +49,21 @@ public class UserController {
         return "无add权限";
     }
 
+
+    /**
+     * 注解式权限
+     * @return
+     */
+    @RequiresRoles("admin")
+    @RequestMapping(value = "/testRole",method = RequestMethod.GET)
+    @ResponseBody
+    public String testRole(){
+        return "testRole success";
+    }
+    @RequiresRoles("admin1")
+    @RequestMapping(value = "/testRole1",method = RequestMethod.GET)
+    @ResponseBody
+    public String testRole1(){
+        return "testRole1 success";
+    }
 }

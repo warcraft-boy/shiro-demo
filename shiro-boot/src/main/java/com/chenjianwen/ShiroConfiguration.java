@@ -54,6 +54,11 @@ public class ShiroConfiguration {
         return new CredentialMatcher();
     }
 
+    /**
+     * 用于开启shiro注解式开发
+     * @param securityManager
+     * @return
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("securityManager") SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
