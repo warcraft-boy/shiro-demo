@@ -16,6 +16,21 @@ import java.util.LinkedHashMap;
 public class ShiroConfiguration {
 
 
+    /**
+     * shiro内置过滤器：
+     * anon - 不需任何认证可直接访问,重点
+     * authBasic - 表示httpBasic认证
+     * authc - 需要认证才能访问，重点
+     * user - 需要当前存在用户才能访问
+     * logout - 退出
+     *
+     * perms[] - 需要相关的权限才能访问,重点
+     * roles[] - 需要相关的角色才能访问,重点
+     * ssl - 表示安全的url请求，协议为https
+     * port - 必须满足相关的端口号才能访问
+     * @param securityManager
+     * @return
+     */
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") SecurityManager securityManager){
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
