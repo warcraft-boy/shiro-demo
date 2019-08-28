@@ -42,7 +42,7 @@ public class UserController {
 //            return "有admin权限";
 //        }
 
-        if(subject.isPermitted("add")){
+        if(subject.isPermitted("query")){
             return "有add权限";
         }
 
@@ -55,15 +55,37 @@ public class UserController {
      * @return
      */
     @RequiresRoles("admin")
+    @RequestMapping(value = "/testAnnotation",method = RequestMethod.GET)
+    @ResponseBody
+    public String testAnnotation(){
+        return "testAnnotation success";
+    }
+    @RequiresRoles("admin1")
+    @RequestMapping(value = "/testAnnotation1",method = RequestMethod.GET)
+    @ResponseBody
+    public String testAnnotation1(){
+        return "testAnnotation1 success";
+    }
+
+
     @RequestMapping(value = "/testRole",method = RequestMethod.GET)
     @ResponseBody
     public String testRole(){
         return "testRole success";
     }
-    @RequiresRoles("admin1")
     @RequestMapping(value = "/testRole1",method = RequestMethod.GET)
     @ResponseBody
     public String testRole1(){
         return "testRole1 success";
+    }
+    @RequestMapping(value = "/testPerms",method = RequestMethod.GET)
+    @ResponseBody
+    public String testPerms(){
+        return "testPerms success";
+    }
+    @RequestMapping(value = "/testPerms1",method = RequestMethod.GET)
+    @ResponseBody
+    public String testPerms1(){
+        return "testPerms1 success";
     }
 }

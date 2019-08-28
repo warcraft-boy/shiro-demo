@@ -18,10 +18,15 @@
         <property name="loginUrl" value="login.html"/>
         <property name="unauthorizedUrl" value="403.html"/>
         <property name="filterChainDefinitions">
+            <!-- 里面的admin,customer,query等等只是数据库保存的role_name,permission_name字段名而已 -->
             <value>
                 /login.html = anon
                 /* = authc
-            </value>
+                /user/testRole = roles["admin"]
+                /user/testRole1 = roles["admin","customer"]
+                /user/testPerms = perms["query"]
+                /user/testPerms1 = perms["query","add"]
+             </value>
         </property>
     </bean>
 
