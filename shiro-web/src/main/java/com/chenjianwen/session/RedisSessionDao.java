@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @Description: <br>
+ * @Description: shiro会话管理
  * @Date: Created in 2019/8/29 <br>
  * @Author: chenjianwen
  */

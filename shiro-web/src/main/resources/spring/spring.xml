@@ -35,6 +35,7 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="realm"/>
         <property name="sessionManager" ref="sessionManager"/>
+        <property name="cacheManager" ref="redisCacheManager"/>
     </bean>
 
     <!-- 创建realm -->
@@ -58,4 +59,5 @@
         <property name="httpOnly" value="true"/>
         <property name="name" value="customSessionId" />
     </bean>
+    <bean id="redisCacheManager" class="com.chenjianwen.cache.RedisCacheManager"/>
 </beans>

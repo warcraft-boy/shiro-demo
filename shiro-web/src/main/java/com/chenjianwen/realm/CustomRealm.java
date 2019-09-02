@@ -107,6 +107,7 @@ public class CustomRealm extends AuthorizingRealm {
      * @return
      */
     private String getPasswordByUsername(String username){
+        System.out.println("从数据库中获取授权数据");
         User user = userService.queryUserByUsername(username);
         if(user == null){
             return null;
