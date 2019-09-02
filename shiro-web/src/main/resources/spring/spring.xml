@@ -33,9 +33,10 @@
 
     <!-- 创建securityManager对象 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="realm"/>
-        <property name="sessionManager" ref="sessionManager"/>
-        <property name="cacheManager" ref="redisCacheManager"/>
+        <property name="realm" ref="realm"/> <!-- 授权认证对象 -->
+        <property name="sessionManager" ref="sessionManager"/> <!-- session会话管理对象 -->
+        <property name="cacheManager" ref="redisCacheManager"/> <!-- cache缓存管理对象 -->
+        <property name="rememberMeManager" ref="cookieRememberMeManager"/> <!-- cookie几天免登录对象 -->
     </bean>
 
     <!-- 创建realm -->
@@ -57,7 +58,12 @@
     <bean id="redisSessionDao" class="com.chenjianwen.session.RedisSessionDao"/>
     <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <property name="httpOnly" value="true"/>
-        <property name="name" value="customSessionId" />
+        <property name="name" value="rememberMe" />
+        <property name="maxAge" value="604800"/> <!-- 7天面登录 -->
     </bean>
     <bean id="redisCacheManager" class="com.chenjianwen.cache.RedisCacheManager"/>
+    <bean id="cookieRememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="simpleCookie"/>
+    </bean>
+
 </beans>

@@ -7,6 +7,8 @@ public class User {
 
     private String password;
 
+    private Boolean rememberMe;
+
     public Long getUid() {
         return uid;
     }
@@ -29,5 +31,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public Boolean getRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(Boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }
