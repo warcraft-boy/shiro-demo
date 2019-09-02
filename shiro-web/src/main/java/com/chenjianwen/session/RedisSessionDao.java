@@ -47,6 +47,7 @@ public class RedisSessionDao extends AbstractSessionDAO {
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
+        System.out.println("read session");
         if(sessionId == null){
             return null;
         }

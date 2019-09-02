@@ -47,8 +47,8 @@
         <property name="hashIterations" value="1"/>
     </bean>
 
-    <!-- session会话管理 -->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <!-- session会话管理<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">改为我们自定义的sessionManager -->
+    <bean id="sessionManager" class="com.chenjianwen.session.CustomSessionManager">
         <property name="sessionDAO" ref="redisSessionDao"/>
         <property name="sessionIdCookie" ref="simpleCookie"/>
         <property name="sessionIdCookieEnabled" value="true"/>
