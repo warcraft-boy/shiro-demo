@@ -78,6 +78,7 @@ public class RedisSessionDao extends AbstractSessionDAO {
         }
         for(byte[] key : keys){
             Session session = (Session) SerializationUtils.deserialize(jedisUtils.get(key));
+            sessions.add(session);
         }
         return sessions;
     }

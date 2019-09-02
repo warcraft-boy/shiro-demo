@@ -34,7 +34,7 @@
     <!-- 创建securityManager对象 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="realm"/>
-<!--        <property name="sessionManager" ref="sessionManager"/>-->
+        <property name="sessionManager" ref="sessionManager"/>
     </bean>
 
     <!-- 创建realm -->
@@ -47,14 +47,15 @@
         <property name="hashIterations" value="1"/>
     </bean>
 
-<!--    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
-<!--        <property name="sessionDAO" ref="redisSessionDao"/>-->
-<!--        <property name="sessionIdCookie" ref="simpleCookie"/>-->
-<!--        <property name="sessionIdCookieEnabled" value="true"/>-->
-<!--    </bean>-->
-<!--    <bean id="redisSessionDao" class="com.chenjianwen.session.RedisSessionDao"/>-->
-<!--    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">-->
-<!--        <constructor-arg value="sid"/>-->
-<!--        <property name="name" value="WEBSID" />-->
-<!--    </bean>-->
+    <!-- session会话管理 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDao"/>
+        <property name="sessionIdCookie" ref="simpleCookie"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+    </bean>
+    <bean id="redisSessionDao" class="com.chenjianwen.session.RedisSessionDao"/>
+    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <property name="httpOnly" value="true"/>
+        <property name="name" value="customSessionId" />
+    </bean>
 </beans>

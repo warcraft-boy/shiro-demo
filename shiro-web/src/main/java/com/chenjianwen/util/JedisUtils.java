@@ -1,10 +1,10 @@
 package com.chenjianwen.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import javax.annotation.Resource;
 import java.util.Set;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Set;
 @Component
 public class JedisUtils {
 
-    @Resource
+    @Autowired
     private JedisPool jedisPool;
 
     private Jedis getResource(){
@@ -26,30 +26,29 @@ public class JedisUtils {
         Jedis jedis = getResource();
         try {
             jedis.set(key,value);
-        } catch (Exception e) {
+            return value;
+        } finally {
             jedis.close();
         }
-        return value;
+
     }
 
     public void expire(byte[] key, int i) {
         Jedis jedis = getResource();
         try {
             jedis.expire(key,i);
-        } catch (Exception e) {
+        } finally {
             jedis.close();
         }
     }
 
     public byte[] get(byte[] key) {
         Jedis jedis = getResource();
-        byte[] value = null;
         try {
-            value = jedis.get(key);
-        } catch (Exception e) {
+            return jedis.get(key);
+        } finally {
             jedis.close();
         }
-        return value;
     }
 
 
@@ -57,19 +56,17 @@ public class JedisUtils {
         Jedis jedis = getResource();
         try {
             jedis.del(key);
-        } catch (Exception e) {
+        } finally {
             jedis.close();
         }
     }
 
     public Set<byte[]> keys(String str) {
         Jedis jedis = getResource();
-        Set<byte[]> keys = null;
         try {
-            keys = jedis.keys((str + "*").getBytes());
-        } catch (Exception e) {
+            return jedis.keys((str + "*").getBytes());
+        } finally {
             jedis.close();
         }
-        return keys;
     }
 }
